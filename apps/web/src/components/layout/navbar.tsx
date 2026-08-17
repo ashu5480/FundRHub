@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Bell, Menu, X, Rocket, LogOut, User as UserIcon } from 'lucide-react';
+import { Bell, Menu, X, LogOut, User as UserIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { Avatar } from '@/components/ui/avatar';
@@ -47,9 +48,7 @@ export function Navbar() {
       <nav className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" aria-label="Main navigation">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2" aria-label="FundrHub home">
-            <span className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary-500 text-white">
-              <Rocket className="h-5 w-5" />
-            </span>
+            <Image src="/logo.png" alt="FundrHub" width={32} height={32} className="rounded-lg object-contain" />
             <span className="text-xl font-bold text-neutral-900">FundrHub</span>
           </Link>
 

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Rocket } from 'lucide-react';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -8,9 +8,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-start justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="flex items-center justify-center h-6 w-6 rounded-md bg-primary-500 text-white">
-                <Rocket className="h-4 w-4" />
-              </span>
+              <Image src="/logo.png" alt="FundrHub" width={24} height={24} className="rounded-md object-contain" />
               <span className="font-bold text-neutral-900">FundrHub</span>
             </div>
             <p className="text-sm text-neutral-500 max-w-xs">
