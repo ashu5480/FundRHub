@@ -1,0 +1,25 @@
+{
+  "name": "fundrhub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FundrHub — Founder ↔ Investor Discovery, Matching & Connection Platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "build:web": "npm run build --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "format:check": "prettier --check .",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "@playwright/test": "^1.47.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
