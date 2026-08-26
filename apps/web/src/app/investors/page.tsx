@@ -3,13 +3,27 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Search, SlidersHorizontal, ShieldCheck } from 'lucide-react';
-import { mockInvestors, SECTOR_OPTIONS, INVESTOR_TYPE_LABELS } from '@/lib/data';
+import { SECTOR_OPTIONS, INVESTOR_TYPE_LABELS } from '@/lib/data';
 import { formatCurrency } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
 import { Input, Select } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { useApi } from '@/hooks/use-api';
 import { InvestorType } from '@/lib/enums';
+
+interface InvestorCard {
+  id: string;
+  name: string;
+  investorType: InvestorType;
+  bio?: string;
+  location?: string;
+  sectors: string[];
+  stages: string[];
+  minTicket?: number | null;
+  maxTicket?: number | null;
+  verificationStatus: string;
+}
 
 export default function InvestorsPage() {
   const [search, setSearch] = useState('');
@@ -17,14 +31,17 @@ export default function InvestorsPage() {
   const [investorType, setInvestorType] = useState('');
   const [showFilters, setShowFilters] = useState(false);
 
-  const filtered = mockInvestors.filter((investor) => {
-    const matchesSearch =
-      (investor.bio ?? '').toLowerCase().includes(search.toLowerCase()) ||
-      (investor.location ?? '').toLowerCase().includes(search.toLowerCase());
-    const matchesSector = !sector || (investor.preferences?.sectors ?? []).includes(sector);
-    const matchesType = !investorType || investor.investorType === investorType;
-    return matchesSearch && matchesSector && matchesType;
-  });
+  const params = new URLSearchParams();
+  if (search.trim()) params.set('q', search.trim());
+  if (sector) params.set('sector', sector);
+  if (investorType) params.set('investorType', investorType);
+
+  const { data, loading, error } = useApi<{ items: InvestorCard[] }>(
+    `/investors${params.toString() ? `?${params.toString()}` : ''}`,
+    [search, sector, investorType],
+  );
+
+  const filtered = data?.items ?? [];
 
   return (
     <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -77,8 +94,15 @@ export default function InvestorsPage() {
         </Card>
       )}
 
+      {error && (
+        <div className="bg-danger-50 text-danger-700 text-sm rounded-lg p-4 mb-6">{error}</div>
+      )}
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((investor) => (
+        {loading && Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="card p-5"><div className="skeleton h-16 mb-4" /><div className="skeleton h-4 mb-2" /><div className="skeleton h-4 w-2/3" /></div>
+        ))}
+        {!loading && filtered.map((investor) => (
           <Link
             key={investor.id}
             href={`/investors/${investor.id}`}
@@ -86,32 +110,28 @@ export default function InvestorsPage() {
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <Avatar name={investor.bio?.split(' ')[0] ?? 'Investor'} size="lg" />
+                <Avatar name={investor.name} size="lg" />
                 <div>
-                  <h3 className="font-semibold text-neutral-900">
-                    {investor.bio?.split(' ').slice(0, 2).join(' ') ?? 'Investor'}
-                  </h3>
+                  <h3 className="font-semibold text-neutral-900">{investor.name}</h3>
                   <p className="text-sm text-neutral-500">{investor.location}</p>
                 </div>
               </div>
-              <Badge variant="verified">
+              <Badge variant={investor.verificationStatus === 'APPROVED' ? 'verified' : 'pending'}>
                 <ShieldCheck className="h-3 w-3 mr-1" />
-                Verified
+                {investor.verificationStatus === 'APPROVED' ? 'Verified' : 'Pending'}
               </Badge>
             </div>
             <p className="text-sm text-neutral-600 mb-4 line-clamp-2">{investor.bio}</p>
             <div className="flex flex-wrap gap-2 mb-4">
-              {investor.preferences?.sectors.slice(0, 3).map((s) => (
-                <Badge key={s} variant="sector">
-                  {s}
-                </Badge>
+              {investor.sectors.slice(0, 3).map((s) => (
+                <Badge key={s} variant="sector">{s}</Badge>
               ))}
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-neutral-500">{INVESTOR_TYPE_LABELS[investor.investorType]}</span>
-              {investor.preferences?.minTicket && investor.preferences?.maxTicket ? (
+              {investor.minTicket != null && investor.maxTicket != null ? (
                 <span className="font-medium text-primary-500">
-                  {formatCurrency(investor.preferences.minTicket)} - {formatCurrency(investor.preferences.maxTicket)}
+                  {formatCurrency(investor.minTicket)} - {formatCurrency(investor.maxTicket)}
                 </span>
               ) : (
                 <span className="text-neutral-400">Ticket size N/A</span>
@@ -121,7 +141,7 @@ export default function InvestorsPage() {
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {!loading && filtered.length === 0 && (
         <div className="text-center py-16">
           <h3 className="text-lg font-semibold text-neutral-900 mb-2">No investors found</h3>
           <p className="text-neutral-500">Try adjusting your search or filters</p>

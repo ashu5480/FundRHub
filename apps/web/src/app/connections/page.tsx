@@ -1,8 +1,7 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
-import { Check, X, Inbox } from 'lucide-react';
-import { mockConnections } from '@/lib/data';
+import { Check, X, Inbox, RefreshCw } from 'lucide-react';
 import { timeAgo } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
@@ -10,19 +9,24 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/components/ui/toast';
 import { useAuth } from '@/context/auth-context';
+import { useApi } from '@/hooks/use-api';
+import { apiPatch, ApiError } from '@/lib/api';
 import { ConnectionStatus } from '@/lib/enums';
+import type { ConnectionRequest } from '@/lib/types';
 
 type FilterType = 'ALL' | 'PENDING' | 'ACCEPTED' | 'REJECTED';
 
 export default function ConnectionsPage() {
   const { user } = useAuth();
-  const { success } = useToast();
+  const { success, error: toastError } = useToast();
   const [filter, setFilter] = useState<FilterType>('ALL');
-  const [connections, setConnections] = useState(mockConnections);
+
+  const { data, loading, error, refetch } = useApi<{ items: ConnectionRequest[] }>(
+    '/connections',
+  );
+  const connections = data?.items ?? [];
 
   const filtered = connections.filter((c) => {
-    const isMine = c.recipientId === user?.id || c.senderId === user?.id;
-    if (!isMine) return false;
     if (filter === 'ALL') return true;
     return c.status === filter;
   });
@@ -49,30 +53,41 @@ export default function ConnectionsPage() {
     }
   };
 
-  const handleAction = (id: string, action: 'accepted' | 'rejected' | 'withdrawn') => {
-    setConnections((prev) =>
-      prev.map((c) =>
-        c.id === id
-          ? {
-              ...c,
-              status:
-                action === 'accepted'
-                  ? ConnectionStatus.ACCEPTED
-                  : action === 'rejected'
-                    ? ConnectionStatus.REJECTED
-                    : ConnectionStatus.WITHDRAWN,
-            }
-          : c,
-      ),
-    );
-    success(
-      action === 'accepted'
-        ? 'Connection accepted!'
-        : action === 'rejected'
-          ? 'Connection rejected'
-          : 'Request withdrawn',
-    );
+  const handleAction = async (id: string, action: 'accepted' | 'rejected' | 'withdrawn') => {
+    try {
+      await apiPatch(`/connections/${id}`, { status: action });
+      success(
+        action === 'accepted'
+          ? 'Connection accepted!'
+          : action === 'rejected'
+            ? 'Connection rejected'
+            : 'Request withdrawn',
+      );
+      refetch();
+    } catch (err) {
+      toastError(err instanceof ApiError ? err.message : 'Action failed');
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-12">
+          <RefreshCw className="h-8 w-8 mx-auto text-neutral-300 animate-spin mb-4" />
+          <p className="text-neutral-500">Loading connections...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        <p className="text-danger-600 mb-4">{error}</p>
+        <Button onClick={refetch}>Retry</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">

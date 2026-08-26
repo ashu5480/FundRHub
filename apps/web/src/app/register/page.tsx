@@ -44,10 +44,10 @@ export default function RegisterPage() {
     setIsLoading(true);
     try {
       await register(email, password, role);
-      success('Account created! Please verify your email.');
-      router.push('/dashboard');
-    } catch {
-      error('Registration failed. Please try again.');
+      success('Account created! Please verify your email to continue.');
+      router.push('/login');
+    } catch (err) {
+      error(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

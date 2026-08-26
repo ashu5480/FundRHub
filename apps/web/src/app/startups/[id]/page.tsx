@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, MapPin, Target, Lightbulb, Users, TrendingUp, FileText, Send } from 'lucide-react';
-import { mockStartups } from '@/lib/data';
+import { ArrowLeft, MapPin, Target, Lightbulb, Users, TrendingUp, FileText, Send, Share2 } from 'lucide-react';
 import { STAGE_LABELS, STARTUP_STATUS_LABELS } from '@/lib/data';
 import { formatCurrency } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -11,12 +10,43 @@ import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader } from '@/components/ui/card';
 import { useToast } from '@/components/ui/toast';
+import { useApi } from '@/hooks/use-api';
+import { useAuth } from '@/context/auth-context';
+import { apiPost, ApiError } from '@/lib/api';
+import type { Startup } from '@/lib/types';
 
 export default function StartupDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { success } = useToast();
-  const startup = mockStartups.find((s) => s.id === params.id);
+  const { success, error: toastError } = useToast();
+  const { user } = useAuth();
+  const { data, loading, error, refetch } = useApi<{ startup: Startup }>(
+    `/startups/${params.id}`,
+  );
+  const startup = data?.startup;
+
+  if (loading) {
+    return (
+      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="space-y-4">
+          <div className="skeleton h-8 w-3/4" />
+          <div className="skeleton h-4 w-1/2" />
+          <div className="skeleton h-64 w-full" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        <h1 className="text-2xl font-bold text-neutral-900 mb-4">Startup not found</h1>
+        <Link href="/startups" className="btn-primary">
+          Back to startups
+        </Link>
+      </div>
+    );
+  }
 
   if (!startup) {
     return (
@@ -29,13 +59,25 @@ export default function StartupDetailPage() {
     );
   }
 
-  const handleConnect = () => {
-    success('Connection request sent!');
-    router.push('/connections');
+    const handleConnect = async () => {
+        if (!user || !startup) return;
+    try {
+      await apiPost('/connections', { recipientId: startup.ownerUserId });
+      success('Connection request sent!');
+      router.push('/connections');
+    } catch (err) {
+      toastError(err instanceof ApiError ? err.message : 'Failed to send connection request');
+    }
   };
 
-  const handleShortlist = () => {
-    success('Added to your shortlist!');
+  const handleShortlist = async () => {
+    if (!user || !startup) return;
+    try {
+      await apiPost('/shortlists', { startupId: startup.id });
+      success('Added to your shortlist!');
+    } catch (err) {
+      toastError(err instanceof ApiError ? err.message : 'Failed to shortlist');
+    }
   };
 
   return (

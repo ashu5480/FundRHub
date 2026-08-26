@@ -2,48 +2,52 @@
 
 import Link from 'next/link';
 import {
-  Rocket,
-  Users,
-  MessageSquare,
-  Bell,
-  ArrowRight,
-  TrendingUp,
-  Briefcase,
-  Target,
+  Rocket, Users, MessageSquare, Bell, TrendingUp, Briefcase, Target,
 } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
 import { Card, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { mockStartups, mockConnections, mockConversations, mockNotifications } from '@/lib/data';
+import { useApi } from '@/hooks/use-api';
 import { STAGE_LABELS, STARTUP_STATUS_LABELS } from '@/lib/data';
 import { formatCurrency, timeAgo } from '@/lib/utils';
 import { UserRole } from '@/lib/enums';
+import type { Startup, ConnectionRequest, Conversation, Notification } from '@/lib/types';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const isFounder = user?.role === UserRole.FOUNDER;
 
-  const pendingRequests = mockConnections.filter((c) => c.status === 'PENDING').length;
-  const unreadMessages = mockConversations.reduce((sum, c) => sum + (c.unreadCount ?? 0), 0);
-  const unreadNotifications = mockNotifications.filter((n) => !n.readAt).length;
+  const startupsPath = isFounder ? '/startups?owner=me' : '/startups';
+  const { data: startupsData } = useApi<{ items: Startup[] }>(startupsPath);
+  const { data: connectionsData } = useApi<{ items: ConnectionRequest[] }>('/connections');
+  const { data: conversationsData } = useApi<{ items: Conversation[] }>('/conversations');
+  const { data: notificationsData } = useApi<{ items: Notification[] }>('/notifications');
+
+  const startups = startupsData?.items ?? [];
+  const pendingRequests = (connectionsData?.items ?? []).filter((c) => c.status === 'PENDING').length;
+  const unreadMessages = (conversationsData?.items ?? []).reduce((sum, c) => sum + (c.unreadCount ?? 0), 0);
+  const notifications = notificationsData?.items ?? [];
+  const unreadNotifications = notifications.filter((n) => !n.readAt).length;
 
   const stats = isFounder
     ? [
-        { label: 'My Startups', value: mockStartups.length, icon: Rocket, color: 'text-primary-500' },
+        { label: 'My Startups', value: startups.length, icon: Rocket, color: 'text-primary-500' },
         { label: 'Pending Requests', value: pendingRequests, icon: Users, color: 'text-warning-500' },
         { label: 'Unread Messages', value: unreadMessages, icon: MessageSquare, color: 'text-secondary-500' },
         { label: 'Notifications', value: unreadNotifications, icon: Bell, color: 'text-danger-500' },
       ]
     : [
-        { label: 'Discover Startups', value: mockStartups.length, icon: Target, color: 'text-primary-500' },
+        { label: 'Startups to Explore', value: startups.length, icon: Target, color: 'text-primary-500' },
         { label: 'Pending Requests', value: pendingRequests, icon: Users, color: 'text-warning-500' },
         { label: 'Unread Messages', value: unreadMessages, icon: MessageSquare, color: 'text-secondary-500' },
-        { label: 'Shortlisted', value: 2, icon: Briefcase, color: 'text-success-500' },
+        { label: 'Shortlisted', value: 0, icon: Briefcase, color: 'text-success-500' },
       ];
 
-  const profileName = user?.founderProfile?.name || user?.email?.split('@')[0] || 'User';
+  const profileName = user?.founderProfile?.name
+    || user?.investorProfile?.bio?.split(' ').slice(0, 2).join(' ')
+    || user?.email?.split('@')[0]
+    || 'User';
 
   return (
     <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -58,7 +62,6 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((stat) => (
           <Card key={stat.label} className="p-4">
@@ -74,9 +77,7 @@ export default function DashboardPage() {
           </Card>
         ))}
       </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* My Startups / Discover */}
+<div className="grid lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader
             title={isFounder ? 'My Startups' : 'Recommended Startups'}
@@ -88,7 +89,7 @@ export default function DashboardPage() {
             }
           />
           <div className="space-y-4">
-            {mockStartups.slice(0, 3).map((startup) => (
+            {startups.slice(0, 3).map((startup) => (
               <Link
                 key={startup.id}
                 href={`/startups/${startup.id}`}
@@ -114,10 +115,21 @@ export default function DashboardPage() {
                 </div>
               </Link>
             ))}
+            {startups.length === 0 && (
+              <div className="text-center py-8">
+                <p className="text-neutral-500">
+                  {isFounder ? 'You haven\'t created any startups yet.' : 'No startups to show yet.'}
+                </p>
+                {isFounder && (
+                  <Link href="/startups/new" className="btn-tertiary btn-sm mt-2">
+                    Create your first startup
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </Card>
 
-        {/* Recent Activity */}
         <Card>
           <CardHeader
             title="Recent Activity"
@@ -129,7 +141,7 @@ export default function DashboardPage() {
             }
           />
           <div className="space-y-4">
-            {mockNotifications.slice(0, 4).map((notification) => (
+            {notifications.slice(0, 4).map((notification) => (
               <div key={notification.id} className="flex items-start gap-3 p-3 rounded-lg hover:bg-neutral-50">
                 <span className="p-2 rounded-lg bg-primary-50 text-primary-500">
                   <Bell className="h-4 w-4" />
@@ -137,11 +149,13 @@ export default function DashboardPage() {
                 <div className="flex-1">
                   <p className="text-sm text-neutral-700">
                     {notification.type === 'CONNECTION_REQUEST' &&
-                      `${notification.payload?.senderName} sent you a connection request`}
+                      `${String(notification.payload?.senderName ?? 'Someone')} sent you a connection request`}
                     {notification.type === 'CONNECTION_ACCEPTED' &&
-                      `${notification.payload?.senderName} accepted your connection request`}
+                      `${String(notification.payload?.senderName ?? 'Someone')} accepted your connection request`}
+                    {notification.type === 'CONNECTION_REJECTED' &&
+                      `${String(notification.payload?.senderName ?? 'Someone')} rejected your connection request`}
                     {notification.type === 'NEW_MESSAGE' &&
-                      `${notification.payload?.senderName} sent you a message`}
+                      `${String(notification.payload?.senderName ?? 'Someone')} sent you a message`}
                     {notification.type === 'SYSTEM' &&
                       String(notification.payload?.message ?? '')}
                   </p>
@@ -150,12 +164,13 @@ export default function DashboardPage() {
                 {!notification.readAt && <span className="h-2 w-2 rounded-full bg-primary-500 mt-1" />}
               </div>
             ))}
+            {notifications.length === 0 && (
+              <p className="text-sm text-neutral-500 text-center py-8">None yet.</p>
+            )}
           </div>
         </Card>
       </div>
-
-      {/* Quick Actions */}
-      <div className="mt-8">
+<div className="mt-8">
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">Quick Actions</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link href="/matches" className="card p-5 hover:shadow-elevated transition-shadow">

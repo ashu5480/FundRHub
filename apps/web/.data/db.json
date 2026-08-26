@@ -1,0 +1,803 @@
+{
+  "users": [
+    {
+      "id": "user-001",
+      "email": "founder@fundrhub.com",
+      "role": "FOUNDER",
+      "status": "ACTIVE",
+      "createdAt": "2025-01-10T10:00:00Z",
+      "updatedAt": "2025-06-15T14:30:00Z",
+      "founderProfile": {
+        "id": "founder-001",
+        "userId": "user-001",
+        "name": "Ashutosh Singh",
+        "bio": "Serial entrepreneur building FundrHub. 10+ years in SaaS and marketplace products.",
+        "location": "Bengaluru, India",
+        "experience": "Founded 2 startups. Previously led product at a fintech unicorn.",
+        "links": {
+          "linkedin": "https://linkedin.com/in/ashutosh",
+          "twitter": "https://twitter.com/ashutosh"
+        },
+        "completeness": 85,
+        "createdAt": "2025-01-10T10:00:00Z",
+        "updatedAt": "2025-06-15T14:30:00Z"
+      },
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff"
+    },
+    {
+      "id": "user-002",
+      "email": "investor@fundrhub.com",
+      "role": "INVESTOR",
+      "status": "ACTIVE",
+      "createdAt": "2025-02-01T09:00:00Z",
+      "updatedAt": "2025-07-10T11:00:00Z",
+      "investorProfile": {
+        "id": "investor-001",
+        "userId": "user-002",
+        "investorType": "ANGEL",
+        "bio": "Angel investor focused on early-stage SaaS and fintech startups across India.",
+        "location": "Mumbai, India",
+        "portfolioSummary": "Invested in 8 startups across fintech, SaaS and healthtech.",
+        "completeness": 90,
+        "createdAt": "2025-02-01T09:00:00Z",
+        "updatedAt": "2025-07-10T11:00:00Z",
+        "preferences": {
+          "id": "pref-001",
+          "investorId": "investor-001",
+          "sectors": [
+            "SAAS",
+            "FINTECH"
+          ],
+          "stages": [
+            "SEED",
+            "EARLY"
+          ],
+          "geographies": [
+            "INDIA",
+            "SOUTHEAST_ASIA"
+          ],
+          "minTicket": 100000,
+          "maxTicket": 1000000,
+          "createdAt": "2025-02-01T09:00:00Z",
+          "updatedAt": "2025-07-10T11:00:00Z"
+        }
+      },
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff"
+    },
+    {
+      "id": "user-003",
+      "email": "rahul@healthnow.com",
+      "role": "FOUNDER",
+      "status": "ACTIVE",
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff",
+      "createdAt": "2026-08-26T10:50:26.185Z",
+      "updatedAt": "2026-08-26T10:50:26.186Z"
+    },
+    {
+      "id": "user-004",
+      "email": "ananya@logiswift.com",
+      "role": "FOUNDER",
+      "status": "ACTIVE",
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff",
+      "createdAt": "2026-08-26T10:50:26.186Z",
+      "updatedAt": "2026-08-26T10:50:26.186Z"
+    },
+    {
+      "id": "user-005",
+      "email": "summit@cap.com",
+      "role": "INVESTOR",
+      "status": "ACTIVE",
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff",
+      "createdAt": "2026-08-26T10:50:26.186Z",
+      "updatedAt": "2026-08-26T10:50:26.186Z"
+    },
+    {
+      "id": "user-006",
+      "email": "caseed@accelerator.co",
+      "role": "INVESTOR",
+      "status": "ACTIVE",
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff",
+      "createdAt": "2026-08-26T10:50:26.186Z",
+      "updatedAt": "2026-08-26T10:50:26.186Z"
+    },
+    {
+      "id": "user-admin",
+      "email": "admin@fundrhub.com",
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "passwordHash": "d92f2900a91c7750351f5116daa118b8:9f8f315866239c6221913e97b05ce9aeda97ecc49f62442b249de1923adf202f0a62495421245681529f5ee1e96b50b2d07b13708153056f286f2f4e595763ff",
+      "createdAt": "2026-08-26T10:50:26.186Z",
+      "updatedAt": "2026-08-26T10:50:26.186Z"
+    }
+  ],
+  "founderProfiles": [
+    {
+      "id": "founder-001",
+      "userId": "user-001",
+      "name": "Ashutosh Singh",
+      "bio": "Serial entrepreneur building FundrHub. 10+ years in SaaS and marketplace products.",
+      "location": "Bengaluru, India",
+      "experience": "Founded 2 startups. Previously led product at a fintech unicorn.",
+      "links": {
+        "linkedin": "https://linkedin.com/in/ashutosh",
+        "twitter": "https://twitter.com/ashutosh"
+      },
+      "completeness": 85,
+      "createdAt": "2025-01-10T10:00:00Z",
+      "updatedAt": "2025-06-15T14:30:00Z"
+    }
+  ],
+  "investorProfiles": [
+    {
+      "id": "investor-001",
+      "userId": "user-002",
+      "investorType": "ANGEL",
+      "bio": "Angel investor focused on early-stage SaaS and fintech startups across India and Southeast Asia.",
+      "location": "Mumbai, India",
+      "portfolioSummary": "Invested in 8 startups across fintech, SaaS and healthtech.",
+      "completeness": 90,
+      "createdAt": "2025-02-01T09:00:00Z",
+      "updatedAt": "2025-07-10T11:00:00Z"
+    },
+    {
+      "id": "investor-002",
+      "userId": "user-005",
+      "investorType": "VC",
+      "bio": "Venture capital firm investing in early to growth-stage technology companies in India.",
+      "location": "Bengaluru, India",
+      "portfolioSummary": "25+ portfolio companies across SaaS, fintech, healthtech and logistics.",
+      "completeness": 95,
+      "createdAt": "2025-01-20T09:00:00Z",
+      "updatedAt": "2025-07-15T11:00:00Z"
+    },
+    {
+      "id": "investor-003",
+      "userId": "user-006",
+      "investorType": "ACCELERATOR",
+      "bio": "Early-stage accelerator supporting pre-seed and seed startups with capital, mentorship and network.",
+      "location": "Singapore",
+      "portfolioSummary": "60+ startups accelerated across Southeast Asia and India.",
+      "completeness": 80,
+      "createdAt": "2025-03-10T09:00:00Z",
+      "updatedAt": "2025-06-20T11:00:00Z"
+    }
+  ],
+  "investmentPreferences": [
+    {
+      "id": "pref-001",
+      "investorId": "investor-001",
+      "sectors": [
+        "SAAS",
+        "FINTECH"
+      ],
+      "stages": [
+        "SEED",
+        "EARLY"
+      ],
+      "geographies": [
+        "INDIA",
+        "SOUTHEAST_ASIA"
+      ],
+      "minTicket": 100000,
+      "maxTicket": 1000000,
+      "createdAt": "2025-02-01T09:00:00Z",
+      "updatedAt": "2025-07-10T11:00:00Z"
+    },
+    {
+      "id": "pref-002",
+      "investorId": "investor-002",
+      "sectors": [
+        "SAAS",
+        "FINTECH",
+        "HEALTHTECH",
+        "LOGISTICS"
+      ],
+      "stages": [
+        "EARLY",
+        "GROWTH"
+      ],
+      "geographies": [
+        "INDIA"
+      ],
+      "minTicket": 500000,
+      "maxTicket": 10000000,
+      "createdAt": "2025-01-20T09:00:00Z",
+      "updatedAt": "2025-07-15T11:00:00Z"
+    },
+    {
+      "id": "pref-003",
+      "investorId": "investor-003",
+      "sectors": [
+        "SAAS",
+        "HEALTHTECH",
+        "EDTECH"
+      ],
+      "stages": [
+        "IDEA",
+        "SEED"
+      ],
+      "geographies": [
+        "INDIA",
+        "SOUTHEAST_ASIA"
+      ],
+      "minTicket": 50000,
+      "maxTicket": 250000,
+      "createdAt": "2025-03-10T09:00:00Z",
+      "updatedAt": "2025-06-20T11:00:00Z"
+    },
+    {
+      "id": "pref-001",
+      "investorId": "investor-001",
+      "sectors": [
+        "SAAS",
+        "FINTECH"
+      ],
+      "stages": [
+        "SEED",
+        "EARLY"
+      ],
+      "geographies": [
+        "INDIA",
+        "SOUTHEAST_ASIA"
+      ],
+      "minTicket": 100000,
+      "maxTicket": 1000000,
+      "createdAt": "2025-02-01T09:00:00Z",
+      "updatedAt": "2025-07-10T11:00:00Z"
+    }
+  ],
+  "startups": [
+    {
+      "id": "startup-001",
+      "ownerUserId": "user-001",
+      "name": "FundrHub",
+      "slug": "fundrhub",
+      "description": "Structured founder-investor discovery and connection platform. We make fundraising discovery searchable, relevant and efficient.",
+      "problem": "Founders waste months finding the right investors through unstructured networking and cold outreach.",
+      "solution": "Structured profiles, compatibility-based matching and controlled connection flows that reduce irrelevant outreach.",
+      "sector": "FINTECH",
+      "stage": "SEED",
+      "location": "Bengaluru, India",
+      "businessModel": "Subscription + featured listings for startups; premium tools for investors.",
+      "status": "PUBLISHED",
+      "owner": {
+        "id": "user-001",
+        "name": "Ashutosh Singh"
+      },
+      "fundingRound": {
+        "id": "round-001",
+        "startupId": "startup-001",
+        "amountSought": 500000,
+        "valuation": 5000000,
+        "equityOffered": 10,
+        "useOfFunds": "Product development, team expansion and go-to-market.",
+        "createdAt": "2025-03-01T10:00:00Z",
+        "updatedAt": "2025-08-01T10:00:00Z"
+      },
+      "teamMembers": [
+        {
+          "id": "member-001",
+          "startupId": "startup-001",
+          "name": "Ashutosh Singh",
+          "role": "Founder & CEO",
+          "bio": "10+ years in SaaS and marketplaces.",
+          "profileLink": "https://linkedin.com/in/ashutosh"
+        },
+        {
+          "id": "member-002",
+          "startupId": "startup-001",
+          "name": "Priya Sharma",
+          "role": "CTO",
+          "bio": "Ex-Google engineer. Expert in distributed systems.",
+          "profileLink": "https://linkedin.com/in/priya"
+        }
+      ],
+      "metrics": [
+        {
+          "id": "metric-001",
+          "startupId": "startup-001",
+          "metricType": "REVENUE",
+          "value": 25000,
+          "period": "2025-Q2",
+          "visibility": "RESTRICTED"
+        },
+        {
+          "id": "metric-002",
+          "startupId": "startup-001",
+          "metricType": "USERS",
+          "value": 2500,
+          "period": "2025-Q2",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "createdAt": "2025-03-01T10:00:00Z",
+      "updatedAt": "2025-08-01T10:00:00Z",
+      "amountSought": 500000
+    },
+    {
+      "id": "startup-002",
+      "ownerUserId": "user-003",
+      "name": "HealthNow",
+      "slug": "healthnow",
+      "description": "AI-powered preventive healthcare platform that helps users manage chronic conditions with personalized insights.",
+      "problem": "Chronic disease management is fragmented and reactive. Patients lack a unified view of their health.",
+      "solution": "Aggregates health data from wearables and labs to deliver personalized, actionable preventive care plans.",
+      "sector": "HEALTHTECH",
+      "stage": "EARLY",
+      "location": "Delhi, India",
+      "businessModel": "B2C subscription + B2B employer wellness programs.",
+      "status": "PUBLISHED",
+      "owner": {
+        "id": "user-003",
+        "name": "Rahul Verma"
+      },
+      "fundingRound": {
+        "id": "round-002",
+        "startupId": "startup-002",
+        "amountSought": 2000000,
+        "valuation": 15000000,
+        "equityOffered": 12,
+        "useOfFunds": "Clinical validation, product expansion and sales team.",
+        "createdAt": "2025-04-15T10:00:00Z",
+        "updatedAt": "2025-07-20T10:00:00Z"
+      },
+      "teamMembers": [
+        {
+          "id": "member-003",
+          "startupId": "startup-002",
+          "name": "Rahul Verma",
+          "role": "Co-Founder & CEO",
+          "bio": "Ex-PharmEasy, healthcare domain expert."
+        }
+      ],
+      "metrics": [
+        {
+          "id": "metric-003",
+          "startupId": "startup-002",
+          "metricType": "REVENUE",
+          "value": 180000,
+          "period": "2025-Q2",
+          "visibility": "RESTRICTED"
+        }
+      ],
+      "createdAt": "2025-04-15T10:00:00Z",
+      "updatedAt": "2025-07-20T10:00:00Z",
+      "amountSought": 2000000
+    },
+    {
+      "id": "startup-003",
+      "ownerUserId": "user-004",
+      "name": "LogiSwift",
+      "slug": "logiswift",
+      "description": "Last-mile logistics optimization platform for e-commerce, reducing delivery costs by up to 30% with AI route planning.",
+      "problem": "Last-mile delivery is the most expensive part of e-commerce logistics, with inefficient routes and high failed-delivery rates.",
+      "solution": "AI-powered route optimization, real-time tracking and delivery prediction that cuts costs and improves success rates.",
+      "sector": "SAAS",
+      "stage": "GROWTH",
+      "location": "Hyderabad, India",
+      "businessModel": "Per-delivery SaaS fee + enterprise licensing.",
+      "status": "PUBLISHED",
+      "owner": {
+        "id": "user-004",
+        "name": "Ananya Patel"
+      },
+      "fundingRound": {
+        "id": "round-003",
+        "startupId": "startup-003",
+        "amountSought": 5000000,
+        "valuation": 40000000,
+        "equityOffered": 8,
+        "useOfFunds": "Sales expansion, R&D for AI models, and customer success.",
+        "createdAt": "2025-05-01T10:00:00Z",
+        "updatedAt": "2025-08-05T10:00:00Z"
+      },
+      "teamMembers": [
+        {
+          "id": "member-004",
+          "startupId": "startup-003",
+          "name": "Ananya Patel",
+          "role": "CEO",
+          "bio": "Supply chain expert, ex-Flipkart."
+        }
+      ],
+      "metrics": [
+        {
+          "id": "metric-004",
+          "startupId": "startup-003",
+          "metricType": "REVENUE",
+          "value": 1200000,
+          "period": "2025-Q2",
+          "visibility": "RESTRICTED"
+        },
+        {
+          "id": "metric-005",
+          "startupId": "startup-003",
+          "metricType": "GROWTH",
+          "value": 45,
+          "period": "2025-Q2",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "createdAt": "2025-05-01T10:00:00Z",
+      "updatedAt": "2025-08-05T10:00:00Z",
+      "amountSought": 5000000
+    }
+  ],
+  "shortlists": [],
+  "connectionRequests": [
+    {
+      "id": "conn-001",
+      "senderId": "user-005",
+      "recipientId": "user-001",
+      "startupId": "startup-001",
+      "status": "PENDING",
+      "message": "I came across FundrHub in your discovery feed. Your approach to structured fundraising is compelling. Would love to discuss synergies with our portfolio.",
+      "sender": {
+        "id": "user-005",
+        "name": "Summit Capital"
+      },
+      "recipient": {
+        "id": "user-001",
+        "name": "Ashutosh Singh"
+      },
+      "startup": {
+        "id": "startup-001",
+        "name": "FundrHub"
+      },
+      "createdAt": "2025-08-10T09:00:00Z",
+      "updatedAt": "2025-08-10T09:00:00Z"
+    },
+    {
+      "id": "conn-002",
+      "senderId": "user-001",
+      "recipientId": "user-002",
+      "startupId": "startup-001",
+      "status": "ACCEPTED",
+      "message": "Following up on your interest. I would love to walk you through the FundrHub platform.",
+      "sender": {
+        "id": "user-001",
+        "name": "Ashutosh Singh"
+      },
+      "recipient": {
+        "id": "user-002",
+        "name": "Ananya Angel"
+      },
+      "startup": {
+        "id": "startup-001",
+        "name": "FundrHub"
+      },
+      "createdAt": "2025-07-15T10:00:00Z",
+      "updatedAt": "2025-07-16T10:00:00Z"
+    },
+    {
+      "id": "conn-003",
+      "senderId": "user-003",
+      "recipientId": "user-005",
+      "startupId": "startup-002",
+      "status": "PENDING",
+      "message": "HealthNow is expanding across India. We would value your expertise in healthcare investments.",
+      "sender": {
+        "id": "user-003",
+        "name": "Rahul Verma"
+      },
+      "recipient": {
+        "id": "user-005",
+        "name": "Summit Capital"
+      },
+      "startup": {
+        "id": "startup-002",
+        "name": "HealthNow"
+      },
+      "createdAt": "2025-08-12T14:00:00Z",
+      "updatedAt": "2025-08-12T14:00:00Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv-001",
+      "connectionRequestId": "conn-002",
+      "otherUser": {
+        "id": "user-002",
+        "name": "Ananya Angel"
+      },
+      "lastMessage": null,
+      "unreadCount": 1,
+      "createdAt": "2025-07-16T10:00:00Z",
+      "updatedAt": "2025-08-14T11:00:00Z"
+    },
+    {
+      "id": "conv-002",
+      "connectionRequestId": "conn-001",
+      "otherUser": {
+        "id": "user-005",
+        "name": "Summit Capital"
+      },
+      "lastMessage": null,
+      "unreadCount": 0,
+      "createdAt": "2025-08-10T09:00:00Z",
+      "updatedAt": "2025-08-11T10:00:00Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-001",
+      "conversationId": "conv-001",
+      "senderId": "user-001",
+      "body": "Hi Ananya, thanks for accepting my connection request!",
+      "createdAt": "2025-07-16T10:05:00Z",
+      "updatedAt": "2025-07-16T10:05:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-002",
+      "conversationId": "conv-001",
+      "senderId": "user-002",
+      "body": "Hi Ashutosh! Glad to connect. Your platform looks interesting.",
+      "createdAt": "2025-07-16T10:10:00Z",
+      "updatedAt": "2025-07-16T10:10:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-003",
+      "conversationId": "conv-001",
+      "senderId": "user-001",
+      "body": "Would you be open to a quick demo next week? I can walk you through the matching engine.",
+      "createdAt": "2025-07-20T14:00:00Z",
+      "updatedAt": "2025-07-20T14:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-004",
+      "conversationId": "conv-001",
+      "senderId": "user-002",
+      "body": "Absolutely, let me check my calendar. How about Tuesday 3 PM?",
+      "createdAt": "2025-07-21T09:30:00Z",
+      "updatedAt": "2025-07-21T09:30:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-005",
+      "conversationId": "conv-001",
+      "senderId": "user-002",
+      "body": "Looking forward to the demo call next week.",
+      "createdAt": "2025-08-14T11:00:00Z",
+      "updatedAt": "2025-08-14T11:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-006",
+      "conversationId": "conv-002",
+      "senderId": "user-005",
+      "body": "Hi, we reviewed your startup profile. We have some questions about the matching algorithm.",
+      "createdAt": "2025-08-10T09:30:00Z",
+      "updatedAt": "2025-08-10T09:30:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "msg-007",
+      "conversationId": "conv-002",
+      "senderId": "user-001",
+      "body": "Happy to share our latest metrics and deck.",
+      "createdAt": "2025-08-11T10:00:00Z",
+      "updatedAt": "2025-08-11T10:00:00Z",
+      "status": "ACTIVE"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-001",
+      "userId": "user-001",
+      "type": "CONNECTION_REQUEST",
+      "payload": {
+        "connectionId": "conn-001",
+        "senderName": "Summit Capital"
+      },
+      "createdAt": "2025-08-10T09:00:00Z"
+    },
+    {
+      "id": "notif-002",
+      "userId": "user-001",
+      "type": "CONNECTION_ACCEPTED",
+      "payload": {
+        "connectionId": "conn-002",
+        "senderName": "Ananya Angel"
+      },
+      "readAt": "2025-07-16T10:00:00Z",
+      "createdAt": "2025-07-16T10:00:00Z"
+    },
+    {
+      "id": "notif-003",
+      "userId": "user-001",
+      "type": "NEW_MESSAGE",
+      "payload": {
+        "conversationId": "conv-001",
+        "senderName": "Ananya Angel"
+      },
+      "createdAt": "2025-08-14T11:00:00Z"
+    },
+    {
+      "id": "notif-004",
+      "userId": "user-001",
+      "type": "SYSTEM",
+      "payload": {
+        "message": "Your startup FundrHub has been approved and published."
+      },
+      "readAt": "2025-08-01T10:00:00Z",
+      "createdAt": "2025-08-01T10:00:00Z"
+    }
+  ],
+  "reports": [],
+  "verifications": [],
+  "categories": [
+    {
+      "id": "aa5de31d-6a47-4fde-a5a3-4d8b079d0e3a",
+      "type": "SECTOR",
+      "name": "FINTECH",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "884af667-4cb1-4435-ad78-2adb0ff5d648",
+      "type": "SECTOR",
+      "name": "SAAS",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "4a9d07bd-a7cb-4d4d-90cd-cc6ee43ee4fb",
+      "type": "SECTOR",
+      "name": "HEALTHTECH",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "1e2d71af-4fbb-485e-af52-02ab0c0f2eb5",
+      "type": "SECTOR",
+      "name": "EDTECH",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "d28c2997-bcfb-4acf-a7b2-ecab55a3fd6a",
+      "type": "SECTOR",
+      "name": "LOGISTICS",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "cd65c48f-0f98-4c8c-add6-0d8aa7fd1610",
+      "type": "SECTOR",
+      "name": "E-COMMERCE",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "25205a15-70c9-4af8-9f4c-0285b522f137",
+      "type": "SECTOR",
+      "name": "AI",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "929dbfce-5c06-4773-8d9b-5f06bf21ac1d",
+      "type": "SECTOR",
+      "name": "CLEANTECH",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "69c1dd2a-d807-49a3-8dae-19275aeba5ff",
+      "type": "SECTOR",
+      "name": "CONSUMER",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.188Z",
+      "updatedAt": "2026-08-26T10:50:26.188Z"
+    },
+    {
+      "id": "97566f25-7b1f-4337-ac74-79fbc69bb29c",
+      "type": "SECTOR",
+      "name": "ENTERPRISE",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "5203353b-9f72-4cc0-8bde-f712d2d83fe9",
+      "type": "SECTOR",
+      "name": "OTHER",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "fc28df12-76ef-4a2a-a0d8-a26f15edba1e",
+      "type": "STAGE",
+      "name": "IDEA",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "8eab1f3a-e135-4638-938a-56529aa70768",
+      "type": "STAGE",
+      "name": "SEED",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "e55e504c-a7c2-4e11-8417-a623a5f2ef48",
+      "type": "STAGE",
+      "name": "EARLY",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "f918be2c-6cb7-4462-9692-9ebd5e585a73",
+      "type": "STAGE",
+      "name": "GROWTH",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "34fe4e42-08d7-4fec-91ca-42caa3c6d985",
+      "type": "STAGE",
+      "name": "LATER",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "c94e65f9-da07-4430-9496-f1181328a578",
+      "type": "INVESTOR_TYPE",
+      "name": "ANGEL",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "ad99e547-16ba-491a-8e12-07139bad4e7a",
+      "type": "INVESTOR_TYPE",
+      "name": "VC",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "3a3e29fa-3229-4dd8-9f18-068803152522",
+      "type": "INVESTOR_TYPE",
+      "name": "ACCELERATOR",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "df7eb7c5-7187-444b-92da-1fa9ac2067a1",
+      "type": "INVESTOR_TYPE",
+      "name": "FAMILY_OFFICE",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    },
+    {
+      "id": "58d1e4b2-2d60-4f5c-897c-2888d4538b2f",
+      "type": "INVESTOR_TYPE",
+      "name": "OTHER",
+      "active": true,
+      "createdAt": "2026-08-26T10:50:26.189Z",
+      "updatedAt": "2026-08-26T10:50:26.189Z"
+    }
+  ],
+  "sessions": [],
+  "auditEvents": []
+}

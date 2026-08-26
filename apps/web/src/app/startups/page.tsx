@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import { mockStartups, SECTOR_OPTIONS, STAGE_LABELS } from '@/lib/data';
+import { STAGE_LABELS, SECTOR_OPTIONS } from '@/lib/data';
 import { formatCurrency } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
 import { Input, Select } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { useApi } from '@/hooks/use-api';
 import { StartupStage } from '@/lib/enums';
+import type { Startup } from '@/lib/types';
 
 export default function StartupsPage() {
   const [search, setSearch] = useState('');
@@ -17,12 +19,17 @@ export default function StartupsPage() {
   const [stage, setStage] = useState('');
   const [showFilters, setShowFilters] = useState(false);
 
-  const filtered = mockStartups.filter((startup) => {
-    const matchesSearch = startup.name.toLowerCase().includes(search.toLowerCase());
-    const matchesSector = !sector || startup.sector === sector;
-    const matchesStage = !stage || startup.stage === stage;
-    return matchesSearch && matchesSector && matchesStage;
-  });
+  const params = new URLSearchParams();
+  if (search.trim()) params.set('q', search.trim());
+  if (sector) params.set('sector', sector);
+  if (stage) params.set('stage', stage);
+
+  const { data, loading, error } = useApi<{ items: Startup[] }>(
+    `/startups${params.toString() ? `?${params.toString()}` : ''}`,
+    [search, sector, stage],
+  );
+
+  const filtered = data?.items ?? [];
 
   return (
     <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -77,8 +84,15 @@ export default function StartupsPage() {
         </Card>
       )}
 
+      {error && (
+        <div className="bg-danger-50 text-danger-700 text-sm rounded-lg p-4 mb-6">{error}</div>
+      )}
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((startup) => (
+        {loading && Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="card p-5"><div className="skeleton h-16 mb-4" /><div className="skeleton h-4 mb-2" /><div className="skeleton h-4 w-2/3" /></div>
+        ))}
+        {!loading && filtered.map((startup) => (
           <Link
             key={startup.id}
             href={`/startups/${startup.id}`}
@@ -108,7 +122,7 @@ export default function StartupsPage() {
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {!loading && filtered.length === 0 && (
         <div className="text-center py-16">
           <h3 className="text-lg font-semibold text-neutral-900 mb-2">No startups found</h3>
           <p className="text-neutral-500">Try adjusting your search or filters</p>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Rocket } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
 import { useToast } from '@/components/ui/toast';
@@ -17,6 +17,8 @@ export default function LoginPage() {
   const { login } = useAuth();
   const { success, error } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const next = searchParams.get('next') ?? '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,18 +28,20 @@ export default function LoginPage() {
     else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Enter a valid email address';
 
     if (!password) newErrors.password = 'Password is required';
-    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
     setIsLoading(true);
     try {
-      await login(email, password);
-      success('Welcome back!');
-      router.push('/dashboard');
-    } catch {
-      error('Login failed. Please try again.');
+      const ok = await login(email, password);
+      if (ok) {
+        success('Welcome back!');
+        router.push(next);
+        router.refresh();
+      }
+    } catch (err) {
+      error(err instanceof Error ? err.message : 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +96,7 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-center text-sm text-neutral-500">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="text-primary-500 hover:text-primary-600 font-medium">
               Register
             </Link>
@@ -101,10 +105,12 @@ export default function LoginPage() {
 
         <div className="mt-6 p-4 bg-primary-50 rounded-lg">
           <p className="text-sm text-primary-700">
-            <strong>Demo credentials:</strong> Use any email and password to login. Try{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded text-xs">founder@fundrhub.com</code> for
-            founder view or <code className="bg-white px-1.5 py-0.5 rounded text-xs">investor@fundrhub.com</code>{' '}
-            for investor view.
+            <strong>Demo credentials:</strong> Use{' '}
+            <code className="bg-white px-1.5 py-0.5 rounded text-xs">founder@fundrhub.com</code> (password{' '}
+            <code className="bg-white px-1.5 py-0.5 rounded text-xs">password123</code>) for the founder view,{' '}
+            <code className="bg-white px-1.5 py-0.5 rounded text-xs">investor@fundrhub.com</code> for the investor
+            view, or <code className="bg-white px-1.5 py-0.5 rounded text-xs">admin@fundrhub.com</code> for the admin
+            console.
           </p>
         </div>
       </div>

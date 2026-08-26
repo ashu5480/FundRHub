@@ -15,26 +15,32 @@ export function Navbar() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
 
-  const isPublic = pathname === '/' || pathname === '/startups' || pathname === '/investors';
-
   const navLinks = user
-    ? user.role === UserRole.FOUNDER
+    ? user.role === UserRole.ADMIN
       ? [
-          { href: '/dashboard', label: 'Dashboard' },
-          { href: '/startups', label: 'Discover' },
+          { href: '/admin', label: 'Admin' },
+          { href: '/startups', label: 'Startups' },
           { href: '/investors', label: 'Investors' },
-          { href: '/matches', label: 'Matches' },
-          { href: '/connections', label: 'Requests' },
           { href: '/messages', label: 'Messages' },
         ]
-      : [
-          { href: '/dashboard', label: 'Dashboard' },
-          { href: '/startups', label: 'Discover' },
-          { href: '/matches', label: 'Matches' },
-          { href: '/shortlist', label: 'Shortlist' },
-          { href: '/connections', label: 'Requests' },
-          { href: '/messages', label: 'Messages' },
-        ]
+      : user.role === UserRole.FOUNDER
+        ? [
+            { href: '/dashboard', label: 'Dashboard' },
+            { href: '/startups', label: 'Discover' },
+            { href: '/investors', label: 'Investors' },
+            { href: '/matches', label: 'Matches' },
+            { href: '/shortlist', label: 'Shortlist' },
+            { href: '/connections', label: 'Requests' },
+            { href: '/messages', label: 'Messages' },
+          ]
+        : [
+            { href: '/dashboard', label: 'Dashboard' },
+            { href: '/startups', label: 'Discover' },
+            { href: '/matches', label: 'Matches' },
+            { href: '/shortlist', label: 'Shortlist' },
+            { href: '/connections', label: 'Requests' },
+            { href: '/messages', label: 'Messages' },
+          ]
     : [
         { href: '/startups', label: 'Explore Startups' },
         { href: '/investors', label: 'Explore Investors' },

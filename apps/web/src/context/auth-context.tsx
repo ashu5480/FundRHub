@@ -1,67 +1,75 @@
 'use client';
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
-import { currentUser, investorUser } from '@/lib/data';
-import { UserRole, UserStatus } from '@/lib/enums';
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
+import { api } from '@/lib/api';
+import { UserRole } from '@/lib/enums';
 import type { User } from '@/lib/types';
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  loading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string, role: UserRole) => Promise<void>;
-  logout: () => void;
-  switchUser: (user: User) => void;
+  logout: () => Promise<void>;
   updateUser: (user: User) => void;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(currentUser);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = async (email: string, _password: string): Promise<boolean> => {
-    // Mock login: any credentials work for demo
-    const matchedUser =
-      email.includes('investor') || email.includes('amit') ? investorUser : currentUser;
-    setUser(matchedUser);
+  const refreshUser = useCallback(async () => {
+    try {
+      const data = await api<{ user: User }>('/me');
+      setUser(data.user);
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshUser().finally(() => setLoading(false));
+  }, [refreshUser]);
+
+  const login = async (email: string, password: string): Promise<boolean> => {
+    const data = await api<{ user: User }>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    setUser(data.user);
     return true;
   };
 
-  const register = async (email: string, _password: string, role: UserRole) => {
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      email,
-      role,
-      status: UserStatus.PENDING_VERIFICATION,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    setUser(newUser);
-  };
-
-  const logout = () => {
+  const register = async (email: string, password: string, role: UserRole) => {
+    await api('/auth/register', { method: 'POST', body: JSON.stringify({ email, password, role }) });
     setUser(null);
   };
 
-  const switchUser = (newUser: User) => {
-    setUser(newUser);
+  const logout = async () => {
+    try {
+      await api('/auth/logout', { method: 'POST' });
+    } finally {
+      setUser(null);
+    }
   };
 
-  const updateUser = (updatedUser: User) => {
-    setUser(updatedUser);
-  };
+  const updateUser = (updatedUser: User) => setUser(updatedUser);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated: !!user,
+        loading,
         login,
         register,
         logout,
-        switchUser,
         updateUser,
+        refreshUser,
       }}
     >
       {children}
