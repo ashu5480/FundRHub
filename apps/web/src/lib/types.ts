@@ -52,6 +52,8 @@ export interface InvestorProfile extends BaseEntity {
   portfolioSummary?: string | null;
   completeness: number;
   preferences?: InvestmentPreference | null;
+  /** Display name of the underlying user (added by the API for cards). */
+  userName?: string;
 }
 
 /** Investment preference model */

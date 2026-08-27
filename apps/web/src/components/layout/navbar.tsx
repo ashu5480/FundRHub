@@ -26,14 +26,20 @@ export function Navbar() {
           { href: '/connections', label: 'Requests' },
           { href: '/messages', label: 'Messages' },
         ]
-      : [
-          { href: '/dashboard', label: 'Dashboard' },
-          { href: '/startups', label: 'Discover' },
-          { href: '/matches', label: 'Matches' },
-          { href: '/shortlist', label: 'Shortlist' },
-          { href: '/connections', label: 'Requests' },
-          { href: '/messages', label: 'Messages' },
-        ]
+      : user.role === UserRole.ADMIN
+        ? [
+            { href: '/admin', label: 'Admin Console' },
+            { href: '/startups', label: 'Startups' },
+            { href: '/investors', label: 'Investors' },
+          ]
+        : [
+            { href: '/dashboard', label: 'Dashboard' },
+            { href: '/startups', label: 'Discover' },
+            { href: '/matches', label: 'Matches' },
+            { href: '/shortlist', label: 'Shortlist' },
+            { href: '/connections', label: 'Requests' },
+            { href: '/messages', label: 'Messages' },
+          ]
     : [
         { href: '/startups', label: 'Explore Startups' },
         { href: '/investors', label: 'Explore Investors' },

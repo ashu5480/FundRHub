@@ -1,72 +1,105 @@
 'use client';
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
-import { currentUser, investorUser } from '@/lib/data';
-import { UserRole, UserStatus } from '@/lib/enums';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
+import { errorMessage, getMe, login as apiLogin, logout as apiLogout, registerUser } from '@/lib/api';
+import { UserRole } from '@/lib/enums';
 import type { User } from '@/lib/types';
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string, role: UserRole) => Promise<void>;
-  logout: () => void;
-  switchUser: (user: User) => void;
+  logout: () => Promise<void>;
   updateUser: (user: User) => void;
+  refresh: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(currentUser);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = async (email: string, _password: string): Promise<boolean> => {
-    // Mock login: any credentials work for demo
-    const matchedUser =
-      email.includes('investor') || email.includes('amit') ? investorUser : currentUser;
-    setUser(matchedUser);
-    return true;
-  };
-
-  const register = async (email: string, _password: string, role: UserRole) => {
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      email,
-      role,
-      status: UserStatus.PENDING_VERIFICATION,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+  // Hydrate the session from the cookie-backed /me endpoint on first load.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { user: me } = await getMe();
+        if (!cancelled) setUser(me);
+      } catch {
+        if (!cancelled) setUser(null);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
     };
-    setUser(newUser);
-  };
+  }, []);
 
-  const logout = () => {
-    setUser(null);
-  };
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+    try {
+      const { user: loggedIn } = await apiLogin(email, password);
+      setUser(loggedIn);
+      return true;
+    } catch (err) {
+      throw new Error(errorMessage(err));
+    }
+  }, []);
 
-  const switchUser = (newUser: User) => {
-    setUser(newUser);
-  };
+  const register = useCallback(async (email: string, password: string, role: UserRole) => {
+    try {
+      await registerUser({ email, password, role });
+    } catch (err) {
+      throw new Error(errorMessage(err));
+    }
+  }, []);
 
-  const updateUser = (updatedUser: User) => {
-    setUser(updatedUser);
-  };
+  const logout = useCallback(async () => {
+    try {
+      await apiLogout();
+    } finally {
+      setUser(null);
+    }
+  }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        login,
-        register,
-        logout,
-        switchUser,
-        updateUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const updateUser = useCallback((updated: User) => setUser(updated), []);
+
+  const refresh = useCallback(async () => {
+    try {
+      const { user: me } = await getMe();
+      setUser(me);
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      isLoading,
+      login,
+      register,
+      logout,
+      updateUser,
+      refresh,
+    }),
+    [user, isLoading, login, register, logout, updateUser, refresh],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthContextType {

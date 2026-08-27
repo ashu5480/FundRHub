@@ -100,12 +100,14 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 p-4 bg-primary-50 rounded-lg">
-          <p className="text-sm text-primary-700">
-            <strong>Demo credentials:</strong> Use any email and password to login. Try{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded text-xs">founder@fundrhub.com</code> for
-            founder view or <code className="bg-white px-1.5 py-0.5 rounded text-xs">investor@fundrhub.com</code>{' '}
-            for investor view.
+          <p className="text-sm text-primary-700 mb-2">
+            <strong>Demo credentials</strong> (password for all: <code className="bg-white px-1.5 py-0.5 rounded text-xs">password123</code>):
           </p>
+          <ul className="text-sm text-primary-700 space-y-1">
+            <li>Founder — <code className="bg-white px-1.5 py-0.5 rounded text-xs">founder@fundrhub.com</code></li>
+            <li>Investor — <code className="bg-white px-1.5 py-0.5 rounded text-xs">investor@fundrhub.com</code></li>
+            <li>Admin — <code className="bg-white px-1.5 py-0.5 rounded text-xs">admin@fundrhub.com</code></li>
+          </ul>
         </div>
       </div>
     </div>

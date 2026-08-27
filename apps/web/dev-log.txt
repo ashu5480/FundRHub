@@ -1,0 +1,168 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:7070
+
+ ✓ Starting...
+ ✓ Ready in 9.8s
+ ○ Compiling / ...
+ ✓ Compiled / in 11.2s (1393 modules)
+ GET / 200 in 12245ms
+ ○ Compiling /api/v1/auth/login ...
+ ✓ Compiled /api/v1/me in 800ms (735 modules)
+ ✓ Compiled (737 modules)
+ POST /api/v1/auth/login 200 in 1673ms
+ GET /api/v1/me 401 in 1212ms
+ GET /api/v1/me 200 in 206ms
+ GET /api/v1/me 401 in 226ms
+ POST /api/v1/auth/login 200 in 189ms
+ GET /api/v1/me 200 in 138ms
+ ✓ Compiled in 624ms (1437 modules)
+ POST /api/v1/auth/login 200 in 89ms
+ ✓ Compiled /api/v1/startups in 156ms (739 modules)
+ GET /api/v1/startups 200 in 282ms
+ ✓ Compiled /api/v1/matches in 141ms (742 modules)
+ POST /api/v1/matches 200 in 312ms
+ ✓ Compiled /api/v1/notifications in 182ms (745 modules)
+ GET /api/v1/notifications 200 in 312ms
+ ✓ Compiled /login in 498ms (1443 modules)
+ GET /login 200 in 720ms
+ GET /login 200 in 78ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 509ms (1455 modules)
+ GET /dashboard 200 in 755ms
+ ✓ Compiled /register in 322ms (1463 modules)
+ GET /register 200 in 532ms
+ ○ Compiling /forgot-password ...
+ ✓ Compiled /forgot-password in 598ms (1473 modules)
+ GET /forgot-password 200 in 831ms
+ ✓ Compiled in 1093ms (1396 modules)
+ ✓ Compiled in 310ms (717 modules)
+ ✓ Compiled in 891ms (1396 modules)
+ ✓ Compiled in 594ms (1396 modules)
+ ✓ Compiled in 327ms (717 modules)
+ ✓ Compiled in 389ms (717 modules)
+ ✓ Compiled in 619ms (1396 modules)
+ ✓ Compiled in 569ms (1396 modules)
+ ✓ Compiled in 574ms (1396 modules)
+ ✓ Compiled in 384ms (717 modules)
+ ✓ Compiled in 342ms (717 modules)
+ ✓ Compiled in 302ms (717 modules)
+ ✓ Compiled in 304ms (717 modules)
+ ✓ Compiled in 383ms (717 modules)
+ ✓ Compiled in 312ms (717 modules)
+ ✓ Compiled in 502ms (717 modules)
+ ✓ Compiled in 338ms (717 modules)
+ ✓ Compiled in 266ms (717 modules)
+ ✓ Compiled in 325ms (717 modules)
+ ✓ Compiled in 349ms (717 modules)
+ ✓ Compiled in 434ms (717 modules)
+ ✓ Compiled in 957ms (1396 modules)
+ ✓ Compiled in 720ms (1410 modules)
+ ✓ Compiled in 751ms (1396 modules)
+ ✓ Compiled in 327ms (717 modules)
+ ✓ Compiled in 260ms (717 modules)
+ ✓ Compiled /login in 168ms (700 modules)
+ GET /login 200 in 387ms
+ GET /login 200 in 106ms
+ ✓ Compiled in 1444ms (1410 modules)
+ ✓ Compiled in 240ms (717 modules)
+ ✓ Compiled in 256ms (717 modules)
+ ✓ Compiled in 342ms (717 modules)
+ ✓ Compiled in 300ms (717 modules)
+ ✓ Compiled in 237ms (717 modules)
+ ✓ Compiled in 232ms (717 modules)
+ ✓ Compiled in 239ms (717 modules)
+ ✓ Compiled in 2.7s (1410 modules)
+ ✓ Compiled in 841ms (717 modules)
+ ✓ Compiled in 715ms (717 modules)
+ ✓ Compiled in 814ms (717 modules)
+ ○ Compiling /login ...
+ ✓ Compiled /login in 672ms (700 modules)
+ GET /login 200 in 1126ms
+ ○ Compiling /about ...
+ ✓ Compiled /about in 910ms (1415 modules)
+ GET /about 200 in 1336ms
+ ○ Compiling /how-it-works ...
+ ✓ Compiled /how-it-works in 753ms (1427 modules)
+ GET /how-it-works 200 in 1173ms
+ ○ Compiling /privacy ...
+ ✓ Compiled /privacy in 587ms (1438 modules)
+ GET /privacy 200 in 951ms
+ ○ Compiling /terms ...
+ ✓ Compiled /terms in 642ms (1440 modules)
+ GET /terms 200 in 963ms
+ ○ Compiling /disclaimer ...
+ ✓ Compiled /disclaimer in 704ms (1449 modules)
+ GET /disclaimer 200 in 1111ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 1387ms (1457 modules)
+ GET /admin 200 in 1717ms
+ ○ Compiling /matches ...
+ ✓ Compiled /matches in 1358ms (1473 modules)
+ GET /matches 200 in 1710ms
+ ○ Compiling /startups/[id] ...
+ ✓ Compiled /startups/[id] in 2.2s (1501 modules)
+ GET /startups/startup-001 200 in 4328ms
+ GET /about 200 in 154ms
+ GET /how-it-works 200 in 170ms
+ GET /privacy 200 in 170ms
+ GET /terms 200 in 134ms
+ GET /disclaimer 200 in 170ms
+ GET /admin 200 in 165ms
+ GET /matches 200 in 165ms
+ GET /startups/startup-001 200 in 200ms
+ ○ Compiling /investors ...
+ ✓ Compiled /investors in 1554ms (1511 modules)
+ GET /investors 200 in 1896ms
+ ○ Compiling /api/v1/auth/login ...
+ ✓ Compiled /api/v1/auth/login in 531ms (819 modules)
+ POST /api/v1/auth/login 200 in 953ms
+ ○ Compiling /api/v1/admin/users ...
+ ✓ Compiled /api/v1/admin/users in 594ms (824 modules)
+ GET /api/v1/admin/users 200 in 925ms
+ ✓ Compiled /api/v1/admin/categories in 483ms (826 modules)
+ GET /api/v1/admin/categories 200 in 722ms
+ ✓ Compiled /api/v1/admin/audit-events in 425ms (828 modules)
+ GET /api/v1/admin/audit-events 200 in 676ms
+ POST /api/v1/auth/login 200 in 197ms
+ ✓ Compiled /api/v1/matches in 421ms (831 modules)
+ POST /api/v1/matches 200 in 695ms
+ GET / 200 in 359ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 590ms (832 modules)
+ GET /dashboard 200 in 1014ms
+ ○ Compiling /connections ...
+ ✓ Compiled /connections in 1078ms (1576 modules)
+ GET /connections 200 in 1400ms
+ ○ Compiling /messages ...
+ ✓ Compiled /messages in 962ms (1584 modules)
+ GET /messages 200 in 1290ms
+ ○ Compiling /notifications ...
+ ✓ Compiled /notifications in 1210ms (1594 modules)
+ GET /notifications 200 in 1502ms
+ ○ Compiling /shortlist ...
+ ✓ Compiled /shortlist in 1146ms (1604 modules)
+ GET /shortlist 200 in 1460ms
+ ○ Compiling /profile ...
+ ✓ Compiled /profile in 1184ms (1616 modules)
+ GET /profile 200 in 1501ms
+ ○ Compiling /startups ...
+ ✓ Compiled /startups in 970ms (1624 modules)
+ GET /startups 200 in 1266ms
+ ○ Compiling /startups/new ...
+ ✓ Compiled /startups/new in 1128ms (1632 modules)
+ GET /startups/new 200 in 1424ms
+ ○ Compiling /coming-soon ...
+ ✓ Compiled /coming-soon in 1177ms (1642 modules)
+ GET /coming-soon 200 in 1516ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 534ms (883 modules)
+ GET /login 200 in 833ms
+ ○ Compiling /register ...
+ ✓ Compiled /register in 581ms (888 modules)
+ GET /register 200 in 916ms
+ ○ Compiling /forgot-password ...
+ ✓ Compiled /forgot-password in 629ms (894 modules)
+ GET /forgot-password 200 in 1002ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1033ms (1670 modules)
+ GET /contact 200 in 1418ms
