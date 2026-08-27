@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, getCurrentUser, requireUser, badRequest } from '@/lib/server/http';
 import { listPitchDecks, addPitchDeck } from '@/lib/server/repos/startups-repo';
 

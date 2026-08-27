@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireUser } from '@/lib/server/http';
 import { createConnection, listConnections } from '@/lib/server/repos/network-repo';
 

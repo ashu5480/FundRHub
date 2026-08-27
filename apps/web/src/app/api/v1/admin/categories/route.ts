@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireAdmin } from '@/lib/server/http';
 import { listCategories, createCategory } from '@/lib/server/repos/admin-repo';
 import { CategoryType } from '@/lib/enums';

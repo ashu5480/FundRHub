@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, getCurrentUser, requireAdmin } from '@/lib/server/http';
 import { listVerifications } from '@/lib/server/repos/admin-repo';
 

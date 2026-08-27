@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireUser, forbidden } from '@/lib/server/http';
 import { upsertPreferences } from '@/lib/server/repos/users-repo';
 import { UserRole } from '@/lib/enums';

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { handle, getCurrentUser, requireUser, forbidden, notFound } from '@/lib/server/http';
 import { getDeckBuffer } from '@/lib/server/repos/startups-repo';

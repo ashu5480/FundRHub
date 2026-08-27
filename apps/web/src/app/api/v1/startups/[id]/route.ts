@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireUser } from '@/lib/server/http';
 import { getStartup, updateStartup } from '@/lib/server/repos/startups-repo';
 

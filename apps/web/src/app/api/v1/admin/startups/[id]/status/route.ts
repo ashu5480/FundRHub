@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireAdmin } from '@/lib/server/http';
 import { setStartupStatus } from '@/lib/server/repos/admin-repo';
 import { StartupStatus } from '@/lib/enums';

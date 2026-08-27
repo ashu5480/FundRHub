@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, setSessionCookie } from '@/lib/server/http';
 import { loginUser, attachProfiles } from '@/lib/server/repos/users-repo';
 

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireUser } from '@/lib/server/http';
 import { computeMatches } from '@/lib/server/repos/matching';
 import { UserRole } from '@/lib/enums';

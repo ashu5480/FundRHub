@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireAdmin } from '@/lib/server/http';
 import { updateReport } from '@/lib/server/repos/admin-repo';
 import { ReportStatus } from '@/lib/enums';

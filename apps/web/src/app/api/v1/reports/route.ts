@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { handle, json, parseBody, getCurrentUser, requireUser, badRequest } from '@/lib/server/http';
 import { createReport } from '@/lib/server/repos/network-repo';
 import { ReportTargetType } from '@/lib/enums';
